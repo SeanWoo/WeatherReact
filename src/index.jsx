@@ -1,27 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 
-class Card extends React.Component{
+class WeatherCard extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            weather: {
-                morning: {
-                    temp: 26,
-                    precipitation: "Солнечно"
-                },
-                day: {
-                    temp: 32,
-                    precipitation: "Солнечно"
-                },
-                evening: {
-                    temp: 24,
-                    precipitation: "Облачно"
-                },
-                night: {
-                    temp: 17,
-                    precipitation: "Дождь"
-                }
+            morning: {
+                temp: 26,
+                precipitation: "Солнечно"
+            },
+            day: {
+                temp: 32,
+                precipitation: "Солнечно"
+            },
+            evening: {
+                temp: 24,
+                precipitation: "Облачно"
+            },
+            night: {
+                temp: 17,
+                precipitation: "Дождь"
             }
         }
     }
@@ -56,8 +54,8 @@ class Card extends React.Component{
         return (
             <div style={styleCard}>
                 <div style={styleNameCard}>{this.props.name}</div>
-                <div style={styleTempCard}>Температура: {this.state.weather[this.props.time].temp} C</div>
-                <div style={stylePrecipitationCard}>Осадки: {this.state.weather[this.props.time].precipitation}</div>
+                <div style={styleTempCard}>Температура: {this.state[this.props.time].temp} C</div>
+                <div style={stylePrecipitationCard}>Осадки: {this.state[this.props.time].precipitation}</div>
             </div>
         );
     }
@@ -73,10 +71,10 @@ class App extends React.Component{
         }
         return (
             <div style={styleDiv}>
-                <Card name="Утро" time="morning"/>
-                <Card name="День" time="day"/>
-                <Card name="Вечер" time="evening"/>
-                <Card name="Ночь" time="night"/>
+                <WeatherCard name="Утро" time="morning"/>
+                <WeatherCard name="День" time="day"/>
+                <WeatherCard name="Вечер" time="evening"/>
+                <WeatherCard name="Ночь" time="night"/>
             </div>
         );
     }
