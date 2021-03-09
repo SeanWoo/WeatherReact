@@ -25,16 +25,39 @@ class Card extends React.Component{
             }
         }
     }
+    getColorByTime(){
+        switch(this.props.time){
+            case "morning": return "#e8dc80"
+            case "day": return "#56e8cb"
+            case "evening": return "#3b5670"
+            case "night": return "#3e474f"
+            default:
+                return "#999"
+        }
+    }
     render(){
         const styleCard = {
-            backgroundColor: "#888",
-            padding: "40px"
+            backgroundColor: this.getColorByTime(),
+            borderRadius: "20px",
+            fontFamily: "Arial"
+        }
+        const styleNameCard = {
+            width: "170px",
+            textAlign: "center",
+            fontWeight: "bold",
+            paddingTop: "10px"
+        }
+        const styleTempCard = {
+            padding: "10px"
+        }
+        const stylePrecipitationCard = {
+            padding: "10px"
         }
         return (
             <div style={styleCard}>
-                <h2>{this.props.name}</h2>
-                <h4>{this.state.weather[this.props.time].temp}</h4>
-                <h4>{this.state.weather[this.props.time].precipitation}</h4>
+                <div style={styleNameCard}>{this.props.name}</div>
+                <div style={styleTempCard}>Температура: {this.state.weather[this.props.time].temp} C</div>
+                <div style={stylePrecipitationCard}>Осадки: {this.state.weather[this.props.time].precipitation}</div>
             </div>
         );
     }
@@ -44,7 +67,9 @@ class App extends React.Component{
     render() {
         const styleDiv = {
             display: "flex",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
+            maxWidth: "800px",
+            margin: "auto"
         }
         return (
             <div style={styleDiv}>
