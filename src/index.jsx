@@ -1,6 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 
+const icons = [
+    "img/temp.png",
+    "img/summer.png",
+    "img/clouds.png",
+    "img/partly-cloudy.png",
+    "img/rain.png",
+]
+
+const styleDiv = {
+    display: "flex",
+    justifyContent: "space-around",
+    maxWidth: "1200px",
+    margin: "auto"
+}
+const styleContainer = {
+    display: "flex",
+    padding: "0px 10px"
+}
+const styleNameCard = {
+    width: "200px",
+    textAlign: "center",
+    fontWeight: "bold",
+    padding: "10px 0px"
+}
+const styleElementCard = {
+    padding: "0px"
+}
+
 class WeatherCard extends React.Component{
     constructor(props){
         super(props)
@@ -33,29 +61,33 @@ class WeatherCard extends React.Component{
                 return "#999"
         }
     }
+    getIconByPrecipitation(){
+        switch(this.state[this.props.time].precipitation){
+            case "Солнечно": return icons[1]
+            case "Облачно": return icons[2]
+            case "Немного облачно": return icons[3]
+            case "Дождь": return icons[4]
+            default:
+                return "#999"
+        }
+    }
     render(){
         const styleCard = {
             backgroundColor: this.getColorByTime(),
-            borderRadius: "20px",
+            borderRadius: "10% / 50%",
             fontFamily: "Arial"
-        }
-        const styleNameCard = {
-            width: "170px",
-            textAlign: "center",
-            fontWeight: "bold",
-            paddingTop: "10px"
-        }
-        const styleTempCard = {
-            padding: "10px"
-        }
-        const stylePrecipitationCard = {
-            padding: "10px"
         }
         return (
             <div style={styleCard}>
                 <div style={styleNameCard}>{this.props.name}</div>
-                <div style={styleTempCard}>Температура: {this.state[this.props.time].temp} C</div>
-                <div style={stylePrecipitationCard}>Осадки: {this.state[this.props.time].precipitation}</div>
+                <div style={styleContainer}>
+                    <img width="32px" src={icons[0]}/>
+                    <div style={styleElementCard}>Температура: {this.state[this.props.time].temp} C</div>
+                </div>
+                <div style={styleContainer}>
+                    <img width="32px" src={this.getIconByPrecipitation()}/>
+                    <div style={styleElementCard}>Осадки: {this.state[this.props.time].precipitation}</div>
+                </div>
             </div>
         );
     }
@@ -63,12 +95,6 @@ class WeatherCard extends React.Component{
 
 class App extends React.Component{
     render() {
-        const styleDiv = {
-            display: "flex",
-            justifyContent: "space-around",
-            maxWidth: "800px",
-            margin: "auto"
-        }
         return (
             <div style={styleDiv}>
                 <WeatherCard name="Утро" time="morning"/>
