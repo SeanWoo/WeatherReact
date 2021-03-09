@@ -30,39 +30,18 @@ const styleElementCard = {
 }
 
 class WeatherCard extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            morning: {
-                temp: 26,
-                precipitation: "Солнечно"
-            },
-            day: {
-                temp: 32,
-                precipitation: "Солнечно"
-            },
-            evening: {
-                temp: 24,
-                precipitation: "Облачно"
-            },
-            night: {
-                temp: 17,
-                precipitation: "Дождь"
-            }
-        }
-    }
     getColorByTime(){
-        switch(this.props.time){
-            case "morning": return "#e8dc80"
-            case "day": return "#56e8cb"
-            case "evening": return "#3b5670"
-            case "night": return "#3e474f"
+        switch(this.props.name){
+            case "Утро": return "#e8dc80"
+            case "День": return "#56e8cb"
+            case "Вечер": return "#3b5670"
+            case "Ночь": return "#3e474f"
             default:
                 return "#999"
         }
     }
     getIconByPrecipitation(){
-        switch(this.state[this.props.time].precipitation){
+        switch(this.props.precipitation){
             case "Солнечно": return icons[1]
             case "Облачно": return icons[2]
             case "Немного облачно": return icons[3]
@@ -82,11 +61,11 @@ class WeatherCard extends React.Component{
                 <div style={styleNameCard}>{this.props.name}</div>
                 <div style={styleContainer}>
                     <img width="32px" src={icons[0]}/>
-                    <div style={styleElementCard}>Температура: {this.state[this.props.time].temp} C</div>
+                    <div style={styleElementCard}>Температура: {this.props.temp} C</div>
                 </div>
                 <div style={styleContainer}>
                     <img width="32px" src={this.getIconByPrecipitation()}/>
-                    <div style={styleElementCard}>Осадки: {this.state[this.props.time].precipitation}</div>
+                    <div style={styleElementCard}>Осадки: {this.props.precipitation}</div>
                 </div>
             </div>
         );
@@ -97,10 +76,10 @@ class App extends React.Component{
     render() {
         return (
             <div style={styleDiv}>
-                <WeatherCard name="Утро" time="morning"/>
-                <WeatherCard name="День" time="day"/>
-                <WeatherCard name="Вечер" time="evening"/>
-                <WeatherCard name="Ночь" time="night"/>
+                <WeatherCard name="Утро" temp="19" precipitation="Солнечно"/>
+                <WeatherCard name="День" temp="24" precipitation="Немного облачно"/>
+                <WeatherCard name="Вечер" temp="27" precipitation="Облачно"/>
+                <WeatherCard name="Ночь" temp="19" precipitation="Дождь"/>
             </div>
         );
     }
